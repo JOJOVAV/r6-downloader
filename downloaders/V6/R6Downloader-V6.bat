@@ -106,7 +106,7 @@ if errorlevel 1 (
 	echo -------------------------------------------------------------------------------
 	echo                          Downloading Cracks...
 	echo -------------------------------------------------------------------------------
-	curl -L "https://github.com/Vergepoland/r6-downloader/raw/refs/heads/main/Cracks.zip" --ssl-no-revoke --output Cracks.zip
+	curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/Cracks.zip" --ssl-no-revoke --output Cracks.zip
 	::Extract
 	for %%I in ("Cracks.zip") do (
 	"Resources\7z.exe" x -y -o"Resources\Cracks" "%%I" -aoa && del %%I
@@ -147,7 +147,7 @@ if errorlevel 1 (
 	echo -------------------------------------------------------------------------------
 	echo                        Downloading Localization file...
 	echo -------------------------------------------------------------------------------
-	curl -L "https://github.com/Vergepoland/r6-downloader/raw/refs/heads/main/localization.lang" --ssl-no-revoke --output localization.lang
+	curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/localization.lang" --ssl-no-revoke --output localization.lang
 	move localization.lang Resources
 	goto localizationCheck
 
@@ -1008,7 +1008,7 @@ MODE 79,20
 echo -------------------------------------------------------------------------------
 echo                            Downloading DXVK...
 echo -------------------------------------------------------------------------------
-curl -L "https://github.com/Vergepoland/r6-downloader/raw/refs/heads/main/Siege-DXVK.zip" --ssl-no-revoke --output Siege-DXVK.zip
+curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/Siege-DXVK.zip" --ssl-no-revoke --output Siege-DXVK.zip
 ::Extract
 for %%I in ("Siege-DXVK.zip") do (
 "Resources\7z.exe" x -y -o"Resources\Tools\Siege-DXVK" "%%I" -aoa && del %%I
