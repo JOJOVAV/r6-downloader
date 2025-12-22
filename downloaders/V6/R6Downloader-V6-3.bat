@@ -22,7 +22,7 @@ exit
 )
 
 :dotnetcheck
-( where dotnet 2> nul ) && ( dotnet --version | findstr /C:"9.0" )
+dotnet --list-sdks 2>nul | findstr /R "^9\." >nul
 if errorlevel 1 (
   start https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.302/dotnet-sdk-9.0.302-win-x64.exe
   cls
