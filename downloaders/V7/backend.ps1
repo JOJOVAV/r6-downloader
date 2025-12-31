@@ -83,24 +83,34 @@ function Invoke-DepotDownload {
         "-max-downloads", $MaxDownloads
     )
 
-    & dotnet $DepotDownloader -app $AppId -depot $DepotId -manifest $ManifestId -username $Username -remember-password -dir $downloadDir -validate -max-downloads $MaxDownloads
-    & dotnet @args
+    # # & dotnet $DepotDownloader -app $AppId -depot $DepotId -manifest $ManifestId -username $Username -remember-password -dir $downloadDir -validate -max-downloads $MaxDownloads
+    # & dotnet @args
+    # # Write-Host 
+    # return $LASTEXITCODE
+        # Run the dotnet command and capture the exit code
+    $process = Start-Process -FilePath dotnet -ArgumentList $args -NoNewWindow -PassThru
+    $process.WaitForExit()
+    $exitCode = $process.ExitCode
+    write-Host "DepotDownloader exited with code $exitCode"
+    Pause > $null
+
+    return $exitCode
 }
 
 # -----------------------------
 # Iterate Depots (Fallback Logic)
 # -----------------------------
-$downloadStatus = ""
+[bool]$success = $false
 
 foreach ($property in $patchData.PSObject.Properties) {
     if ($property.Name -match '^\d+$') {
         $depotId = $property.Name
         $manifestId = $property.Value
 
-        $downloadStatus = Invoke-DepotDownload -app $AppId -DepotId $depotId -ManifestId $manifestId -Username $Username -remember-password -MaxDownloads $MaxDownloads
-       
+        $exitCode = Invoke-DepotDownload -app $AppId -DepotId $depotId -ManifestId $manifestId -Username $Username -remember-password -MaxDownloads $MaxDownloads
+        Write-Host "Exit Code: $exitCode"
         pause > $null
-       if ($exitCode -eq 0) {
+        if ($exitCode -eq 0) {
             Write-Host "Year $Year Season $Season downloaded successfully"
             $success = $true
             continue
@@ -110,9 +120,9 @@ foreach ($property in $patchData.PSObject.Properties) {
     }
 }
 
-# if ($success = $false) {
-#     throw "All depots failed"
-# }
+ if ($success = $false) {
+     throw "All depots failed"
+ }
 
 # -----------------------------
 # Post Processing
