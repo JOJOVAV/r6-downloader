@@ -47,6 +47,7 @@ $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
 # -----------------------------
 try {
     $patchData = $manifest.$Year.$Season.$Patch
+    $seasonName = $manifest.$Year.$Season.name
 } catch {
     throw "Invalid Year / Season / Patch selection"
 }
@@ -54,7 +55,7 @@ try {
 # -----------------------------
 # Prepare Output Folder
 # -----------------------------
-$downloadDir = Join-Path $OutputDir "${Year}${Season}"
+$downloadDir = Join-Path $OutputDir "${Year}${Season}_${seasonName}"
 New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
 
 # -----------------------------

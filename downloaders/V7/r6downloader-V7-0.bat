@@ -9,6 +9,7 @@ set "ininame=username"
 set "iniMAXDOWNLOADS=maxdownloads"
 set backendscript=Resources\backend.ps1
 set save=Resources\script.ps1
+set "manifest=Resources\manifest.json"
 set "USERNAME="
 set MAXDOWNLOADS=
 
@@ -20,13 +21,13 @@ call :CrackCheck
 call :CrackCheck2
 call :cmdCheck
 call :scriptcheck
-call :backendcheck
+call :manifestcheck
 call :checkini
 call :checkname
+call :checkmaxdownloads
 
 @REM powershell -Command "$exclusion = Get-MpPreference | Where-Object { $_.ExclusionPath -like '*%folder%*' }; if ($exclusion) { Write-Host 'Exclusion found for the folder in Windows Defender Antivirus.' } else { Write-Host 'No exclusion found for the folder in Windows Defender Antivirus.' start view-source:https://puppetino.github.io/Throwback-FAQ/static/img/faq_img/Sequenz%\2001_1.gif }"
 
-@REM pause >nul
 
 :foridiots
 Title Rainbow Six Siege Downloader
@@ -684,18 +685,6 @@ if NOT exist "Resources\cmdmenusel.exe" (
 )
 exit /b
 
-:backendcheck
-title Backend Check
-cls
-if NOT exist "%backendscript%" (
-  curl -L "https://github.com/JOJOVAV/r6-downloader/releases/download/Canary-V7.0/backend.ps1" --ssl-no-revoke --output "%backendscript%"
-)
-exit /b
-
-:cmdMenuSel
-Resources\cmdMenuSel 07f0 %*
-exit /b
-
 :scriptcheck
 title Backend Script Check
 cls
@@ -708,6 +697,11 @@ if NOT exist "%save%" (
 )
 
 exit /b
+
+:manifestcheck
+if NOT exist "%manifest%" (
+  curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/downloaders/V7/manifest.json" --ssl-no-revoke --output "%manifest%"
+)
 
 :checkini
 Title INI File Check
@@ -781,6 +775,10 @@ exit /b
 echo   Season Name      ^| Year ^| Size   ^| Additional Notes
 exit /b
 
+:cmdMenuSel
+Resources\cmdMenuSel 07f0 %*
+exit /b
+
 :moresettings
 Title Downloader Settings
 cls
@@ -811,6 +809,17 @@ set /p MAXDOWNLOADS= Enter the downloadspeed (default is set 25):
 if "%MAXDOWNLOADS%" == "" set MAXDOWNLOADS=25
 powershell -ExecutionPolicy Bypass -File "%save%" -iniFile "%inifile%" -section "%sectionS%" -key "%iniMAXDOWNLOADS%" -newValue "%MAXDOWNLOADS%"
 goto moresettings
+
+:checkmaxdownloads
+cls
+MODE 60,10
+for /f "tokens=2 delims==" %%M in ('
+    findstr /R "^[ ]*maxdownloads=" "%inifile%"
+') do (
+    set "MAXDOWNLOADS=%%M"
+)
+
+exit /b
 
 :quidefaq
 start https://puppetino.github.io/Throwback-FAQ/Pages/getting_started.html
