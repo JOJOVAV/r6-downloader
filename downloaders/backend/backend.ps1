@@ -21,7 +21,7 @@ param (
     [int]$MaxDownloads,
 
     [string]$AppId = "359550",
-    [string]$ManifestPath = "Resources\manifest.json",
+    [string]$ManifestPath,
     [string]$DepotDownloader = "Resources\DepotDownloader.dll",
     [string]$OutputDir = "Downloads"
 )
@@ -29,8 +29,12 @@ param (
 # -----------------------------
 # Load Manifest Json
 # -----------------------------
-if (-not (Test-Path $ManifestPath)) {
-    throw "Manifest file not found: $ManifestPath"
+if (!$ManifestPath -or !(Test-Path $ManifestPath)) {
+    $ManifestPath = Join-Path $PSScriptRoot 'manifest.json'
+}
+
+if (!$DepotDownloader -or !(Test-Path $DepotDownloader)) {
+    $DepotDownloader = Join-Path $PSScriptRoot 'DepotDownloader.dll'
 }
 # try {
 #     $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
@@ -55,7 +59,7 @@ try {
 # -----------------------------
 # Prepare Output Folder
 # -----------------------------
-$downloadDir = Join-Path $OutputDir "${Year}${Season}_${seasonName}"
+$downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
 New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
 
 # -----------------------------
@@ -84,53 +88,52 @@ function Invoke-DepotDownload {
         "-max-downloads", $MaxDownloads
     )
 
-    # # & dotnet $DepotDownloader -app $AppId -depot $DepotId -manifest $ManifestId -username $Username -remember-password -dir $downloadDir -validate -max-downloads $MaxDownloads
+    & dotnet $DepotDownloader -app $AppId -depot $DepotId -manifest $ManifestId -username $Username -remember-password -dir $downloadDir -validate -max-downloads $MaxDownloads
     # & dotnet @args
     # # Write-Host 
     # return $LASTEXITCODE
         # Run the dotnet command and capture the exit code
-    $process = Start-Process -FilePath dotnet -ArgumentList $args -NoNewWindow -PassThru
-    $process.WaitForExit()
-    $exitCode = $process.ExitCode
-    write-Host "DepotDownloader exited with code $exitCode"
-    Pause > $null
+    # Start-Process -FilePath dotnet -ArgumentList $args -NoNewWindow -PassThru
+    # $process.WaitForExit()
+    # $exitCode = $process.ExitCode
+    # write-Host "DepotDownloader exited with code $exitCode"
+    # Pause > $null
 
-    return $exitCode
+    # return $exitCode
 }
 
 # -----------------------------
 # Iterate Depots (Fallback Logic)
 # -----------------------------
-[bool]$success = $false
+# [bool]$success = $false
 
 foreach ($property in $patchData.PSObject.Properties) {
     if ($property.Name -match '^\d+$') {
         $depotId = $property.Name
         $manifestId = $property.Value
 
-        $exitCode = Invoke-DepotDownload -app $AppId -DepotId $depotId -ManifestId $manifestId -Username $Username -remember-password -MaxDownloads $MaxDownloads
-        Write-Host "Exit Code: $exitCode"
-        pause > $null
-        if ($exitCode -eq 0) {
-            Write-Host "Year $Year Season $Season downloaded successfully"
-            $success = $true
-            continue
-        } else {
-            Write-Warning "Year $Year Season $Season download failed, trying next..."
-        }
+        Invoke-DepotDownload -app $AppId -DepotId $depotId -ManifestId $manifestId -Username $Username -remember-password -MaxDownloads $MaxDownloads
+        
+        # if ($exitCode -eq 0) {
+        #     Write-Host "Year $Year Season $Season downloaded successfully"
+        #     $success = $true
+        #     continue
+        # } else {
+        #     Write-Warning "Year $Year Season $Season download failed, trying next..."
+        # }
     }
 }
 
- if ($success = $false) {
-     throw "All depots failed"
- }
+#  if ($success = $false) {
+#      throw "All depots failed"
+#  }
 
 # -----------------------------
 # Post Processing
 # -----------------------------
 Write-Host "Running post-download copy tasks..."
 
-robocopy "Resources\ThrowbackLoader\Base" $downloadDir /E
-robocopy "Resources\ThrowbackLoader\Y1SX-Y6S2" $downloadDir /E
+# robocopy "Resources\ThrowbackLoader\Base" $downloadDir /E
+# robocopy "Resources\ThrowbackLoader\Y1SX-Y6S2" $downloadDir /E
 
 Write-Host "Download complete."
