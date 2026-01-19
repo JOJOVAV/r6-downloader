@@ -12,9 +12,14 @@ set save=Resources\script.ps1
 set "manifest=Resources\manifest.json"
 set "USERNAME="
 set MAXDOWNLOADS=
+set "GITHUB_REPO_OWNER=JOJOVAV"
+set "GITHUB_REPO_NAME=r6-downloader"
+set "CURRENT_VERSION=7.0"
+set "LATEST_VERSION="
 
 call :onedrive
 call :dotnetcheck
+call :checkversion
 call :7zipcheck
 call :DepotCheck
 call :CrackCheck
@@ -620,6 +625,31 @@ if NOT "%FOUND%" == "1" (
 )
 exit /b
 
+:checkversion
+title Version Check
+@REM set "LATEST_VERSION=7.0"
+cls
+@REM powershell -Command "$latestVersion = (Invoke-RestMethod -Uri 'https://api.github.com/repos/%GITHUB_REPO_OWNER%/%GITHUB_REPO_NAME%/releases/latest' -Method Get).tag_name; if ([Version]$latestVersion -gt [Version]'%CURRENT_VERSION%') { echo A new version of the Downloader is available! } else { echo You have the latest version of the Downloader. }"
+for /f "usebackq delims=" %%A in (`powershell -NoProfile -Command "(Invoke-RestMethod -Uri 'https://api.github.com/repos/%GITHUB_REPO_OWNER%/%GITHUB_REPO_NAME%/releases/latest' -Method Get).tag_name"`) do set LATEST_VERSION=%%A
+if "%LATEST_VERSION%" NEQ "%CURRENT_VERSION%" (
+    echo A new version of the Downloader is available!
+    echo Your version : %CURRENT_VERSION%
+    echo Latest version: %LATEST_VERSION%
+    echo.
+    set /p updatechoice="Do you want to download the latest version now? (Y/N): "
+    if /I "%updatechoice%"=="Y" OR /I "%updatechoice%"=="YES" (
+        start https://github.com/JOJOVAV/r6-downloader/releases/latest
+        exit
+    ) else (
+        echo You chose not to update. Continuing with the current version.
+    )
+) else (
+    echo You have the latest version of the Downloader.
+
+)
+@REM pause >nul
+exit /b
+
 ::resourcescheck
 :7zipcheck
 title 7zip Check
@@ -854,7 +884,7 @@ pause >nul
 exit /b
 
 :extratools
-echo not implemented yet
+start https://github.com/JOJOVAV/r6-tools
 pause >nul
 exit /b
 
