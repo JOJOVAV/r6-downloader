@@ -36,18 +36,17 @@ if (!$ManifestPath -or !(Test-Path $ManifestPath)) {
 if (!$DepotDownloader -or !(Test-Path $DepotDownloader)) {
     $DepotDownloader = Join-Path $PSScriptRoot 'DepotDownloader.dll'
 }
-# try {
-#     $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
-# } catch {
-#     Write-Host "Error reading manifest file: $ManifestPath"
-#     Write-Host $_.Exception.Message
-#     exit 1
-# }
+try {
+    $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
+} catch {
+    Write-Host "Error reading manifest file: $ManifestPath"
+    Write-Host $_.Exception.Message
+    exit 1
+}
 
-Write-Host "script root is $PSScriptRoot"
-pause > $null
 
-$manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
+
+# $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
 
 # -----------------------------
 # Validate Path
@@ -128,7 +127,7 @@ Write-Host "Converting string to integers"
 [int]$patchInt = $Patch.Substring(1)
 Write-Host "Year int is $yearInt"
 Write-Host "Season int is $seasonInt"
-break
+
 $seasonString = $yearInt.$seasonInt.$patchInt
 # helios path
 $heliosPath = "$PSScriptRoot\HeliosLoader"
@@ -144,11 +143,11 @@ $throwbackloaderFiles = @{
 }
 
 switch ($seasonString) {
-    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Recurse -Force }
-    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
-    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Recurse -Force }
-    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Recurse -Force }
-    Default {"It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder."}
+    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y1-Y6S2"}
+    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force Write-Host "Copied HeliosLoader files for Y5S4.2 (Heated Metal mod)" }
+    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y6S3" }
+    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y6S4 and beyond" }
+    Default { Write-Host "It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder." }
 }
 
 
