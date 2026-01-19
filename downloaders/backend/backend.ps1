@@ -142,13 +142,14 @@ $throwbackloaderFiles = @{
     f7 = "uplay_r1_loader64.dll" 
 }
 
-switch ($seasonString) {
-    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y1-Y6S2"}
-    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force Write-Host "Copied HeliosLoader files for Y5S4.2 (Heated Metal mod)" }
-    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y6S3" }
-    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force Write-Host "Copied Throwbackloader files for Y6S4 and beyond" }
+switch ($yearInt.$seasonInt.$patchInt) {
+    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force }
+    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
+    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force }
+    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
     Default { Write-Host "It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder." }
 }
+
 
 
 Write-Host "Download complete."
