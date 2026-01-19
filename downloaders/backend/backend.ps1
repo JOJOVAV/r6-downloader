@@ -59,7 +59,17 @@ try {
 # -----------------------------
 # Prepare Output Folder
 # -----------------------------
-$downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
+# $downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
+# New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
+
+$hmPatch = "Y5.S4.2"
+
+if ($hmPatch -eq "$Year.$Season.$Patch") {
+    $downloadDir = Join-Path $OutputDir($Year + $Season + '_' + $seasonName + 'HM' -replace ' ', '')
+}
+else {
+    $downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
+}
 New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
 
 # -----------------------------
