@@ -44,6 +44,9 @@ if (!$DepotDownloader -or !(Test-Path $DepotDownloader)) {
 #     exit 1
 # }
 
+Write-Host "script root is $PSScriptRoot"
+pause > $null
+
 $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
 
 # -----------------------------
@@ -59,8 +62,6 @@ try {
 # -----------------------------
 # Prepare Output Folder
 # -----------------------------
-# $downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
-# New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
 
 $hmPatch = "Y5.S4.2"
 
@@ -99,23 +100,12 @@ function Invoke-DepotDownload {
     )
 
     & dotnet $DepotDownloader -app $AppId -depot $DepotId -manifest $ManifestId -username $Username -remember-password -dir $downloadDir -validate -max-downloads $MaxDownloads
-    # & dotnet @args
-    # # Write-Host 
-    # return $LASTEXITCODE
-        # Run the dotnet command and capture the exit code
-    # Start-Process -FilePath dotnet -ArgumentList $args -NoNewWindow -PassThru
-    # $process.WaitForExit()
-    # $exitCode = $process.ExitCode
-    # write-Host "DepotDownloader exited with code $exitCode"
-    # Pause > $null
 
-    # return $exitCode
 }
 
 # -----------------------------
 # Iterate Depots (Fallback Logic)
 # -----------------------------
-# [bool]$success = $false
 
 foreach ($property in $patchData.PSObject.Properties) {
     if ($property.Name -match '^\d+$') {
@@ -123,27 +113,43 @@ foreach ($property in $patchData.PSObject.Properties) {
         $manifestId = $property.Value
 
         Invoke-DepotDownload -app $AppId -DepotId $depotId -ManifestId $manifestId -Username $Username -remember-password -MaxDownloads $MaxDownloads
-        
-        # if ($exitCode -eq 0) {
-        #     Write-Host "Year $Year Season $Season downloaded successfully"
-        #     $success = $true
-        #     continue
-        # } else {
-        #     Write-Warning "Year $Year Season $Season download failed, trying next..."
-        # }
+  
     }
 }
 
-#  if ($success = $false) {
-#      throw "All depots failed"
-#  }
 
 # -----------------------------
 # Post Processing
 # -----------------------------
 Write-Host "Running post-download copy tasks..."
+Write-Host "Converting string to integers"
+[int]$yearInt = $Year.Substring(1)
+[int]$seasonInt = $Season.Substring(1)
+[int]$patchInt = $Patch.Substring(1)
+Write-Host "Year int is $yearInt"
+Write-Host "Season int is $seasonInt"
+break
+$seasonString = $yearInt.$seasonInt.$patchInt
+# helios path
+$heliosPath = "$PSScriptRoot\HeliosLoader"
+$throwbackPath = "$PSScriptRoot\ThrowbackLoader"
+$throwbackloaderFiles = @{
+    f1 = "defaultargs.dll";
+    f2 = "LaunchR6.bat";
+    f3 = "steam_api64.dll";
+    f4 = "ThrowbackLoader.toml";
+    f5 = "upc_r1_loader64.dll"; 
+    f6 = "upc_r2_loader64.dll"; 
+    f7 = "uplay_r1_loader64.dll" 
+}
 
-# robocopy "Resources\ThrowbackLoader\Base" $downloadDir /E
-# robocopy "Resources\ThrowbackLoader\Y1SX-Y6S2" $downloadDir /E
+switch ($seasonString) {
+    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Recurse -Force }
+    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
+    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Recurse -Force }
+    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Recurse -Force }
+    Default {"It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder."}
+}
+
 
 Write-Host "Download complete."
