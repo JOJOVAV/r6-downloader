@@ -120,15 +120,11 @@ foreach ($property in $patchData.PSObject.Properties) {
 # -----------------------------
 # Post Processing
 # -----------------------------
-Write-Host "Running post-download copy tasks..."
-Write-Host "Converting string to integers"
 [int]$yearInt = $Year.Substring(1)
 [int]$seasonInt = $Season.Substring(1)
 [int]$patchInt = $Patch.Substring(1)
-Write-Host "Year int is $yearInt"
-Write-Host "Season int is $seasonInt"
 
-$seasonString = $yearInt.$seasonInt.$patchInt
+# $seasonString = $yearInt.$seasonInt.$patchInt
 # helios path
 $heliosPath = "$PSScriptRoot\HeliosLoader"
 $throwbackPath = "$PSScriptRoot\ThrowbackLoader"
