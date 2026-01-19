@@ -188,7 +188,7 @@ goto year2
 :Y2S3_BloodOrchid
 echo You have selected Blood Orchid Edition
 set SEASON="S3"
-set PATCH="3"
+set PATCH="2"
 call :downloading
 goto year2
 
@@ -895,3 +895,4 @@ goto mainmenu
 :siegeclaim
 start https://store.steampowered.com/app/359550/Rainbow_Six_Siege/
 goto mainmenu
+
