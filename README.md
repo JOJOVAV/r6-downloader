@@ -12,7 +12,8 @@ So basicly it's just a little interface to make it easy for you and us to downlo
 ## How to use
 Download the .bat file from releases and put it in your excluded folder. Make sure you are not in Onedrive.  
 Run the bat file and it should autodownload everything.  
-after you are done downloading go to the new folder downloads > game and press the launchr6.bat file.
+after you are done downloading go to the new folder downloads > game and press the launchr6.bat file.  
+If the game for some reason infinite loading on downloading certain files download here [the resource](https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/downloaders/V7/Resources.zip) folder
 
 ## Contributing
 Contributions are welcome! Feel free to open an issue or submit a pull request.
