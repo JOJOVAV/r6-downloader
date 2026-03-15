@@ -68,7 +68,7 @@ echo.
 echo   [1] Main Menu  
 echo   [2] Shadow Legacy    ^| Y5S3 ^| 88.0 GB   
 echo   %green%[3] Neon Dawn        ^| Y5S4 ^| 57.0 GB (RECOMMENDED)%reset%
-echo   [4] New Blood          ^| Y9S2 ^| 120.0 GB
+echo   [4] New Blood          ^| Y9S2 ^| 56.0 GB
 choice /c 1234 /n /m "   choose a number: "
 if errorlevel 4 goto Y9S2_NewBlood
 if errorlevel 3 goto Y5S4_NeonDawn
