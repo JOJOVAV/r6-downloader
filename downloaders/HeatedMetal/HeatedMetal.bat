@@ -68,7 +68,9 @@ echo.
 echo   [1] Main Menu  
 echo   [2] Shadow Legacy    ^| Y5S3 ^| 88.0 GB   
 echo   %green%[3] Neon Dawn        ^| Y5S4 ^| 57.0 GB (RECOMMENDED)%reset%
-choice /c 123 /n /m "   choose a number: "
+echo   [4] New Blood          ^| Y9S2 ^| 120.0 GB
+choice /c 1234 /n /m "   choose a number: "
+if errorlevel 4 goto Y9S2_NewBlood
 if errorlevel 3 goto Y5S4_NeonDawn
 if errorlevel 2 goto Y5S3_ShadowLegacy
 if errorlevel 1 goto mainmenu
@@ -110,8 +112,22 @@ Robocopy Resources\HeliosLoader Downloads\Y5S4_NeonDawnHM
 @REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y5S4_NeonDawnHM /s
 ::Robocopy Resources Downloads\Y5S4_NeonDawnHM localization.lang /IS /IT
 goto downloadcomplete
-:: MANIFEST
 
+:Y9S2_NewBlood
+MODE 120,50
+Title Downloading New Blood...
+cls
+set /p username="Enter Steam Username:"
+echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
+pause
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
+pause
+Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBlood
+@REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y9S2_NewBlood /s
+::Robocopy Resources Downloads\Y9S2_NewBlood localization.lang /IS /IT
+goto downloadcomplete
 
 :downloadcomplete
 MODE 70,6
