@@ -65,10 +65,10 @@ try {
 $hmPatch = "Y5.S4.2"
 
 if ($hmPatch -eq "$Year.$Season.$Patch") {
-    $downloadDir = Join-Path $OutputDir($Year + $Season + '_' + $seasonName + 'HM' -replace ' ', '')
+    $downloadDir = Join-Path $OutputDir($Year.ToUpper() + $Season.ToUpper() + '_' + $seasonName + 'HM' -replace ' ', '')
 }
 else {
-    $downloadDir = Join-Path $OutputDir ($Year + $Season + '_' + $seasonName -replace ' ', '')
+    $downloadDir = Join-Path $OutputDir ($Year.ToUpper() + $Season.ToUpper() + '_' + $seasonName -replace ' ', '')
 }
 New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
 
@@ -142,7 +142,8 @@ switch ($yearInt.$seasonInt.$patchInt) {
     {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force }
     5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
     6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force }
-    {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
+    # {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
+    {$yearInt -eq 6 -and $seasonInt -eq 4 -or ($yearInt -ge 7) } { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
     Default { Write-Host "It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder." }
 }
 
