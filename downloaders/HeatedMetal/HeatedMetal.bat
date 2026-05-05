@@ -124,7 +124,7 @@ dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184
 dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
 dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
 pause
-Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBlood
+Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBloodHM
 @REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y9S2_NewBlood /s
 ::Robocopy Resources Downloads\Y9S2_NewBlood localization.lang /IS /IT
 goto downloadcomplete
@@ -283,7 +283,7 @@ exit /b
 title Helios Check
 cls
 if NOT exist "Resources\HeliosLoader\HeliosLoader.json" (
-  curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/HeliosLoader.zip" --ssl-no-revoke --output HeliosLoader.zip
+  curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/cracks/HeliosLoader.zip" --ssl-no-revoke --output HeliosLoader.zip
   ::extract
   for %%I in ("HeliosLoader.zip") do (
   "Resources\7z.exe" x -y -o"Resources" "%%I" -aoa && del %%I
