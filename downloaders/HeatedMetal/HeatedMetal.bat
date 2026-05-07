@@ -90,7 +90,7 @@ dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8589363
 dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 4020038723910014041 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
 dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3089981610366186823 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
 pause
-Robocopy Resources\HeliosLoader Downloads\Y5S2_SteelWave
+Robocopy Resources\HeliosLoader Downloads\Y5S3_ShadowLegacy
 @REM Robocopy Resources\ThrowbackLoader\Base Downloads\Y5S3_ShadowLegacy
 @REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y5S3_ShadowLegacy /s
 ::Robocopy Resources Downloads\Y5S3_ShadowLegacy localization.lang /IS /IT
@@ -120,9 +120,9 @@ cls
 set /p username="Enter Steam Username:"
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
 pause
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBlood" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
 pause
 Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBloodHM
 @REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y9S2_NewBlood /s
