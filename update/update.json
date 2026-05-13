@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "path": "backend.ps1",
+      "url": "https://raw.githubusercontent.com/user/repo/main/backend.ps1",
+      "sha256": "abc123"
+    },
+    {
+      "path": "script.ps1",
+      "url": "https://raw.githubusercontent.com/user/repo/main/script.ps1",
+      "sha256": "def456"
+    },
+    {
+      "path": "helios.zip",
+      "url": "https://raw.githubusercontent.com/user/repo/main/helios.zip",
+      "sha256": "xyz999"
+    }
+  ]
+}
