@@ -1,0 +1,13 @@
+node_modules/
+Downloads/
+Resources/
+*.7z
+*.zip
+depot.zip
+HeatedMetal.7z
+HeliosLoader.zip
+*.log
+.DS_Store
+Thumbs.db
+dist/
+out/
