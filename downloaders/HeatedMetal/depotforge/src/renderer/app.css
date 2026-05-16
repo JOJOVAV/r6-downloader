@@ -1,0 +1,49 @@
+/* DepotForge app-specific tweaks on top of theme.css */
+
+/* Disable text selection on chrome (sidebar, header) for a more native feel */
+.df-sidebar, .df-header, .df-nav-item, .df-tab, .df-btn { user-select: none; }
+
+/* About / Credits modal blocks */
+.df-credit-block {
+  padding: 12px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-2);
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+.df-credit-block a {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.df-credit-block a:hover { text-decoration: underline; }
+
+.df-credit-title {
+  font-size: 12.5px;
+  color: var(--text-1);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Tiny inline link inside text */
+.df-link {
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+}
+.df-link:hover { text-decoration: underline; }
+
+/* OneDrive global warning bar */
+.df-onedrive-bar {
+  background: var(--danger-soft);
+  color: var(--danger);
+  padding: 8px 16px;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--border-1);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

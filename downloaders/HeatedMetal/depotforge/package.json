@@ -1,0 +1,15 @@
+{
+  "name": "depotforge",
+  "version": "1.0.0",
+  "description": "Modern UI for the Heated Metal / Rainbow Six Siege depot downloader. Fork / UI layer on top of the original HeatedMetal.bat workflow by JVAV.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging"
+  },
+  "author": "DepotForge UI contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}
