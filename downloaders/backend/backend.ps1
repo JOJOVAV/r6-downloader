@@ -62,9 +62,12 @@ try {
 # Prepare Output Folder
 # -----------------------------
 
-$hmPatch = "Y5.S4.2"
+# $hmPatch = "Y5.S4.2" -or "Y9S2.0"
 
-if ($hmPatch -eq "$Year.$Season.$Patch") {
+if ($Year -eq "Y5" -and $Season -eq "S4" -and $Patch -eq "2") {
+    $downloadDir = Join-Path $OutputDir($Year.ToUpper() + $Season.ToUpper() + '_' + $seasonName + 'HM' -replace ' ', '')
+}
+elseif ($Year -eq "Y9" -and $Season -eq "S2" -and $Patch -eq "0") {
     $downloadDir = Join-Path $OutputDir($Year.ToUpper() + $Season.ToUpper() + '_' + $seasonName + 'HM' -replace ' ', '')
 }
 else {
@@ -138,12 +141,60 @@ $throwbackloaderFiles = @{
     f7 = "uplay_r1_loader64.dll" 
 }
 
+# switch ($yearInt.$seasonInt.$patchInt) {
+#     {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force }
+#     {5.4.2 -or 9.2.0} { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
+#     6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force }
+#     # {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
+#     {$yearInt -eq 6 -and $seasonInt -eq 4 -or ($yearInt -ge 7) } { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
+#     Default { Write-Host "It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder." }
+# }
+
 switch ($yearInt.$seasonInt.$patchInt) {
-    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f7) -Destination $downloadDir -Force }
-    5.4.2 { Copy-Item $heliosPath\*.* -Destination $downloadDir -Recurse -Force }
-    6.3.* { Copy-Item "$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)" -Destination $downloadDir -Force }
-    # {$yearInt -gt 6 -and $seasonInt -gt 3} { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
-    {$yearInt -eq 6 -and $seasonInt -eq 4 -or ($yearInt -ge 7) } { Copy-Item $throwbackPath\$($throwbackloaderFiles.f1), $throwbackPath\$($throwbackloaderFiles.f2), $throwbackPath\$($throwbackloaderFiles.f3), $throwbackPath\$($throwbackloaderFiles.f4), $throwbackPath\$($throwbackloaderFiles.f6) -Destination $downloadDir -Force }
+    {$YearInt -ge 1 -or ($YearInt -le 6 -and $seasonInt -le 2)} { 
+        $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f7)")
+        foreach ($file in $files) {
+            if (Test-Path $file) {
+                Copy-Item $file -Destination $downloadDir -Force
+            }
+            else {
+                Write-Host "File not found: $file"
+            }
+        }
+    }
+    { 5.4.2 -or 9.2.0 } { 
+        $files = @("$heliosPath\*.*")
+        foreach ($file in $files) {
+            if (Test-Path $file) {
+                Copy-Item $file -Destination $downloadDir -Recurse -Force
+            }
+            else {
+                Write-Host "File not found: $file"
+            }
+        }
+    }
+    6.3.* { 
+        $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)")
+        foreach ($file in $files) {
+            if (Test-Path $file) {
+                Copy-Item $file -Destination $downloadDir -Force
+            }
+            else {
+                Write-Host "File not found: $file"
+            }
+        }
+    }
+    {$yearInt -eq 6 -and $seasonInt -eq 4 -or ($yearInt -ge 7) } { 
+        $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f6)")
+        foreach ($file in $files) {
+            if (Test-Path $file) {
+                Copy-Item $file -Destination $downloadDir -Force
+            }
+            else {
+                Write-Host "File not found: $file"
+            }
+        }
+    }
     Default { Write-Host "It seems there are no files to copy, make sure to Throwbackloaderloader folder in your resource folder." }
 }
 
