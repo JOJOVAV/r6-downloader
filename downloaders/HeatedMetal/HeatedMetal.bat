@@ -70,8 +70,8 @@ echo -------------------------------------------------------------------------
 echo.
 echo   [1] Main Menu  
 echo   [2] Shadow Legacy    ^| Y5S3 ^| 88.0 GB   
-echo   %green%[3] Neon Dawn        ^| Y5S4 ^| 57.0 GB (RECOMMENDED)%reset%
-echo   [4] New Blood        ^| Y9S2 ^| 56.0 GB (OPEN BETA)
+echo   [3] Neon Dawn        ^| Y5S4 ^| 57.0 GB
+echo   %green%[4] New Blood        ^| Y9S2 ^| 56.0 GB (RECOMMENDED)%reset%
 choice /c 1234 /n /m "   choose a number: "
 if errorlevel 4 goto Y9S2_NewBlood
 if errorlevel 3 goto Y5S4_NeonDawn
@@ -151,10 +151,10 @@ echo ----------------------------------------------------------
 echo.
 echo   [1] Back to Main Menu
 echo   [2] Download Heated Metal 0.2.3 (Y5S3 ONLY)
-echo   %green%[3] Download Heated Metal 0.4.2.2 (Y5S4 ONLY) RECOMMENDED%reset%
-echo   [4] Download Heated Metal latest version (Y9S2 ONLY) COMING SOON
+echo   [3] Download Heated Metal 0.4.2.2 (Y5S4 ONLY)
+echo   %green%[4] Download Heated Metal latest version (Y9S2 ONLY) RECOMMENDED%reset%
 echo.
-choice /c 123 /n /m "  Choose a number: "
+choice /c 1234 /n /m "  Choose a number: "
 if errorlevel 4 goto hm_nbdownload
 if errorlevel 3 goto hm_nddownload
 if errorlevel 2 goto hm_sldownload
@@ -170,13 +170,9 @@ echo ---------------------------------------------------------------------------
 curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.2.3/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
 ::check if y5s3 is installed
 if exist "Downloads\Y5S3_ShadowLegacy" (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Downloads\Y5S3_ShadowLegacy" "%%I" -aoa && del %%I
-		)
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y5S3_ShadowLegacy' -Force; Remove-Item 'HeatedMetal.7z'"
 	) else (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y5S3_ShadowLegacy" "%%I" -aoa && del %%I
-  )
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y5S3_ShadowLegacy' -Force; Remove-Item 'HeatedMetal.7z'"
 )
 pause
 goto downloadcomplete
@@ -198,13 +194,9 @@ curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/H
 
 ::check if Y5S4 is installed
 if exist "Downloads\Y5S4_NeonDawnHM" (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Downloads\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
-		)
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y5S4_NeonDawnHM' -Force; Remove-Item 'HeatedMetal.7z'"
 	) else (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
-  )
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y5S4_NeonDawnHM' -Force; Remove-Item 'HeatedMetal.7z'"
 )
 goto downloadcomplete
 
@@ -224,12 +216,10 @@ echo !DOWNLOAD_URL!
 
 ::check if Y9S2 is installed
 if exist "Downloads\Y9S2_NewBloodHM" (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Downloads\Y9S2_NewBloodHM" "%%I" -aoa && del %%I
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
 		)
 	) else (
-		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y9S2_NewBloodHM" "%%I" -aoa && del %%I
+		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
   )
 )
 goto downloadcomplete
