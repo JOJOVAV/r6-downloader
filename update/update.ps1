@@ -6,8 +6,8 @@ $data = Invoke-RestMethod -Uri $jsonUrl
 $BaseDir = Split-Path -Parent $PSScriptRoot
 Set-Location $BaseDir
 
-write-host "$BaseDir"
-Pause
+#write-host "$BaseDir"
+#Pause
 
 $updatePlan = @()
 
