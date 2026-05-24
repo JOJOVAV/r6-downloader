@@ -88,10 +88,6 @@
         "sha256": "45F1A8536557899D4ED2C3D97828F52C10FC2CE6F44BB7B7D938A08602C52FA2"
       },
       {
-        "path": "Resources/ThrowbackLoader/ThrowbackLoader.zip",
-        "sha256": "0E4222570CD000D63139CF52B964D1AC045FF574F96EDB280EFB5BCF6161AEFD"
-      },
-      {
         "path": "Resources/ThrowbackLoader/upc_r1_loader64.dll",
         "sha256": "AC3306A34DF1EF93BF35F3589ADC1314D3BCA041315F789169DC7640558059A8"
       },
