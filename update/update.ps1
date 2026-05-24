@@ -109,7 +109,6 @@ foreach ($item in $updatePlan) {
                 Write-Host "Hash mismatch: $relativePath" -ForegroundColor Red
                 Write-Host "Expected: $expectedHash"
                 Write-Host "Got     : $newHash"
-                pause
             }
         }
     }
