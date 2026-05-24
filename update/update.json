@@ -3,7 +3,7 @@
     "url": "https://raw.githubusercontent.com/JOJOVAV/r6-downloader/refs/heads/main/downloaders/backend/backend.ps1",
     "files": [
       {
-        "path": "/backend.ps1",
+        "path": "Resources/backend.ps1",
         "sha256": "51C0A83AB63AC1450F5A55F7EEA84BB14A10617F907311F28AB31C5C99C9E6CE"
       }
     ]
@@ -12,7 +12,7 @@
     "url": "https://github.com/JOJOVAV/cod-Lan-Launcher/raw/main/cmdmenusel.exe",
     "files": [
       {
-        "path": "/cmdmenusel.exe",
+        "path": "Resources/cmdmenusel.exe",
         "sha256": "0F3B0050B21B55AAF4878230AC89C0E799BE84F3137E4E14B8305E078A240E87"
       }
     ]
@@ -21,7 +21,7 @@
     "url": "https://raw.githubusercontent.com/JOJOVAV/r6-downloader/refs/heads/main/downloaders/backend/manifest.json",
     "files": [
       {
-        "path": "/manifest.json",
+        "path": "Resources/manifest.json",
         "sha256": "8E5A642BDF50DE34125CF1E0B5CD27E149276F0A218D20A82665F817411B031E"
       }
     ]
@@ -30,7 +30,7 @@
     "url": "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/downloaders/backend/script.ps1",
     "files": [
       {
-        "path": "/script.ps1",
+        "path": "Resources/script.ps1",
         "sha256": "435BE8A4859417713D95078FDDFF4C57EC67D3E1E89E9F6FF01DAC642382C50B"
       }
     ]
@@ -39,27 +39,27 @@
     "url": "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/cracks/HeliosLoader.zip",
     "files": [
       {
-        "path": "/HeliosLoader/HeliosLoader.json",
+        "path": "Resources/HeliosLoader/HeliosLoader.json",
         "sha256": "BF67370DCF2F79DB60F476F6C9444FC192C18A3AFEDB8148C1B0D49172F6C367"
       },
       {
-        "path": "/HeliosLoader/LaunchR6.bat",
+        "path": "Resources/HeliosLoader/LaunchR6.bat",
         "sha256": "F36FE7DD372A2E25A948CA6BF9124EE900E20F3E6A0B86D9989BD7438C0E3B80"
       },
       {
-        "path": "/HeliosLoader/steam_api64.dll",
+        "path": "Resources/HeliosLoader/steam_api64.dll",
         "sha256": "0CFE547EA82071953CF99DAFFA3BD11BB468EEC0E400961E7E33E4DC36674EA8"
       },
       {
-        "path": "/HeliosLoader/upc_r2_loader64.dll",
+        "path": "Resources/HeliosLoader/upc_r2_loader64.dll",
         "sha256": "1716F69CFD7018FFF47352342FD92DDE107062B2EE8E27237ED726BC9772C9B8"
       },
       {
-        "path": "/HeliosLoader/uplay_r1_loader64.dll",
+        "path": "Resources/HeliosLoader/uplay_r1_loader64.dll",
         "sha256": "1716F69CFD7018FFF47352342FD92DDE107062B2EE8E27237ED726BC9772C9B8"
       },
       {
-        "path": "/HeliosLoader/uplay_r2_loader64.dll",
+        "path": "Resources/HeliosLoader/uplay_r2_loader64.dll",
         "sha256": "1716F69CFD7018FFF47352342FD92DDE107062B2EE8E27237ED726BC9772C9B8"
       }
     ]
@@ -68,39 +68,39 @@
     "url": "https://github.com/lungu19/ThrowbackLoader/releases/download/1.0.1/ThrowbackLoader_1.0.1.zip",
     "files": [
       {
-        "path": "/ThrowbackLoader/defaultargs.dll",
+        "path": "Resources/ThrowbackLoader/defaultargs.dll",
         "sha256": "59C5CD5D079EB8F514BAC631985E3A7BD56119A0B937125ABBDED8BD7C269DE9"
       },
       {
-        "path": "/ThrowbackLoader/LaunchR6.bat",
+        "path": "Resources/ThrowbackLoader/LaunchR6.bat",
         "sha256": "F36FE7DD372A2E25A948CA6BF9124EE900E20F3E6A0B86D9989BD7438C0E3B80"
       },
       {
-        "path": "/ThrowbackLoader/README.txt",
+        "path": "Resources/ThrowbackLoader/README.txt",
         "sha256": "E4F00DFAED5BE2DBDE47C1FBD48380870C66D880FDEE9B90CF59A4B71D84D62A"
       },
       {
-        "path": "/ThrowbackLoader/steam_api64.dll",
+        "path": "Resources/ThrowbackLoader/steam_api64.dll",
         "sha256": "0CFE547EA82071953CF99DAFFA3BD11BB468EEC0E400961E7E33E4DC36674EA8"
       },
       {
-        "path": "/ThrowbackLoader/ThrowbackLoader.toml",
+        "path": "Resources/ThrowbackLoader/ThrowbackLoader.toml",
         "sha256": "45F1A8536557899D4ED2C3D97828F52C10FC2CE6F44BB7B7D938A08602C52FA2"
       },
       {
-        "path": "/ThrowbackLoader/ThrowbackLoader.zip",
+        "path": "Resources/ThrowbackLoader/ThrowbackLoader.zip",
         "sha256": "0E4222570CD000D63139CF52B964D1AC045FF574F96EDB280EFB5BCF6161AEFD"
       },
       {
-        "path": "/ThrowbackLoader/upc_r1_loader64.dll",
+        "path": "Resources/ThrowbackLoader/upc_r1_loader64.dll",
         "sha256": "AC3306A34DF1EF93BF35F3589ADC1314D3BCA041315F789169DC7640558059A8"
       },
       {
-        "path": "/ThrowbackLoader/upc_r2_loader64.dll",
+        "path": "Resources/ThrowbackLoader/upc_r2_loader64.dll",
         "sha256": "AC6079508D734D89460C867054982A0A74CA89FA389F06861D91E134C92B4A48"
       },
       {
-        "path": "/ThrowbackLoader/uplay_r1_loader64.dll",
+        "path": "Resources/ThrowbackLoader/uplay_r1_loader64.dll",
         "sha256": "AC3306A34DF1EF93BF35F3589ADC1314D3BCA041315F789169DC7640558059A8"
       }
     ]
