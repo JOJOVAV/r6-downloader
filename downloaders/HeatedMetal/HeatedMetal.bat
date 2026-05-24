@@ -1,18 +1,21 @@
 @echo off
 Color 0F
-
+setlocal enableextensions EnableDelayedExpansion
 @REM collour
 for /f %%A in ('echo prompt $E^|cmd') do set "ESC=%%A"
-
+set maxdownloads=25
 set "green=%ESC%[32m"
 set "brightgreen=%ESC%[92m"
 set "bold=%ESC%[1m"
 set "reset=%ESC%[0m"
 
-@REM basic checks
-call :onedrive
-call :dotnetcheck
-call :7zipcheck
+::onedrive check
+for %%O in ("%OneDrive%" "%OneDriveConsumer%" "%OneDriveCommercial%") do (
+    if not "%%~O"=="" (
+        echo "%folder%" | find /I "%%~O" >nul && goto onedrive || call :dotnetcheck
+    )
+)
+
 call :DepotCheck
 call :helioscheck
 
@@ -68,7 +71,7 @@ echo.
 echo   [1] Main Menu  
 echo   [2] Shadow Legacy    ^| Y5S3 ^| 88.0 GB   
 echo   %green%[3] Neon Dawn        ^| Y5S4 ^| 57.0 GB (RECOMMENDED)%reset%
-echo   [4] New Blood          ^| Y9S2 ^| 56.0 GB
+echo   [4] New Blood        ^| Y9S2 ^| 56.0 GB (OPEN BETA)
 choice /c 1234 /n /m "   choose a number: "
 if errorlevel 4 goto Y9S2_NewBlood
 if errorlevel 3 goto Y5S4_NeonDawn
@@ -81,18 +84,16 @@ MODE 120,50
 Title Downloading Shadow Legacy...
 cls
 set /p username="Enter Steam Username:"
-echo Heated Metal will NO longer be supported on Shadow Legacy! 
+echo Heated Metal will NO longer be supported on Shadow Legacy!
 echo Last availible version is 0.2.3
 echo Use the Neon Dawn option to use future Heated Metal versions, unless you wish to use older versions of Heated Metal.
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe or Lumaplay.exe^!
 pause
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 85893637567200342 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 4020038723910014041 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3089981610366186823 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 85893637567200342 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 4020038723910014041 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3089981610366186823 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
 pause
 Robocopy Resources\HeliosLoader Downloads\Y5S3_ShadowLegacy
-@REM Robocopy Resources\ThrowbackLoader\Base Downloads\Y5S3_ShadowLegacy
-@REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y5S3_ShadowLegacy /s
 ::Robocopy Resources Downloads\Y5S3_ShadowLegacy localization.lang /IS /IT
 goto downloadcomplete
 
@@ -105,12 +106,10 @@ set /p username="Enter Steam Username:"
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
 pause
 dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 3390446325154338855 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3175150742361965235 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 6947060999143280245 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3175150742361965235 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 6947060999143280245 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
 pause
 Robocopy Resources\HeliosLoader Downloads\Y5S4_NeonDawnHM
-@REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y5S4_NeonDawnHM /s
-::Robocopy Resources Downloads\Y5S4_NeonDawnHM localization.lang /IS /IT
 goto downloadcomplete
 
 :Y9S2_NewBlood
@@ -120,13 +119,11 @@ cls
 set /p username="Enter Steam Username:"
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
 pause
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
 pause
 Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBloodHM
-@REM Robocopy Resources\ThrowbackLoader\Y1SX-Y6S2 Downloads\Y9S2_NewBlood /s
-::Robocopy Resources Downloads\Y9S2_NewBlood localization.lang /IS /IT
 goto downloadcomplete
 
 :downloadcomplete
@@ -154,14 +151,14 @@ echo ----------------------------------------------------------
 echo.
 echo   [1] Back to Main Menu
 echo   [2] Download Heated Metal 0.2.3 (Y5S3 ONLY)
-echo   %green%[3] Download Heated Metal latest version (Y5S4 ONLY) RECOMMENDED%reset%
+echo   %green%[3] Download Heated Metal 0.4.2.2 (Y5S4 ONLY) RECOMMENDED%reset%
+echo   [4] Download Heated Metal latest version (Y9S2 ONLY) COMING SOON
 echo.
 choice /c 123 /n /m "  Choose a number: "
+if errorlevel 4 goto hm_nbdownload
 if errorlevel 3 goto hm_nddownload
 if errorlevel 2 goto hm_sldownload
 if errorlevel 1 goto mainmenu
-
-
 
 
 :hm_sldownload
@@ -182,9 +179,36 @@ if exist "Downloads\Y5S3_ShadowLegacy" (
   )
 )
 pause
-goto HeatedMetal
+goto downloadcomplete
 
 :hm_nddownload
+cls
+MODE 79,20
+echo -------------------------------------------------------------------------------
+echo                    Downloading Latest Version of Heated Metal
+echo -------------------------------------------------------------------------------
+curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
+@REM for /f %%D in ('
+@REM     powershell -NoProfile -command ^
+@REM     "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
+@REM     ') do set DOWNLOAD_URL=%%D
+
+@REM echo %DOWNLOAD_URL%
+@REM   curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
+
+::check if Y5S4 is installed
+if exist "Downloads\Y5S4_NeonDawnHM" (
+		for %%I in ("HeatedMetal.7z") do (
+			"Resources\7z.exe" x -y -o"Downloads\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
+		)
+	) else (
+		for %%I in ("HeatedMetal.7z") do (
+			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
+  )
+)
+goto downloadcomplete
+
+:hm_nbdownload
 cls
 MODE 79,20
 echo -------------------------------------------------------------------------------
@@ -195,28 +219,28 @@ for /f %%D in ('
     "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
     ') do set DOWNLOAD_URL=%%D
 
-echo %DOWNLOAD_URL%
-  curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
+echo !DOWNLOAD_URL!
+  curl -L -o HeatedMetal.7z !DOWNLOAD_URL!
 
-::check if y5s4 is installed
-if exist "Downloads\Y5S4_NeonDawnHM" (
+::check if Y9S2 is installed
+if exist "Downloads\Y9S2_NewBloodHM" (
 		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Downloads\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
+			"Resources\7z.exe" x -y -o"Downloads\Y9S2_NewBloodHM" "%%I" -aoa && del %%I
 		)
 	) else (
 		for %%I in ("HeatedMetal.7z") do (
-			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y5S4_NeonDawnHM" "%%I" -aoa && del %%I
+			"Resources\7z.exe" x -y -o"Resources\HeatedMetal\Y9S2_NewBloodHM" "%%I" -aoa && del %%I
   )
 )
-goto HeatedMetal
+goto downloadcomplete
 
 
 :onedrive
 Title OneDrive Folder Check
 cls
-ECHO %folder% | FIND /C "OneDrive" >NUL
-IF NOT ERRORLEVEL 1 (
-    start https://bit.ly/no-onedrive
+@REM ECHO %folder% | FIND /C "OneDrive" >NUL
+@REM IF NOT ERRORLEVEL 1 (
+start https://bit.ly/no-onedrive
 cls
 echo ----------------------------------------------------------------------------------------------------------------
 echo ^| You ran this downloader inside of a OneDrive folder, move the downloader to a different location.            ^|
@@ -226,8 +250,8 @@ echo ---------------------------------------------------------------------------
 echo Press any key to close the downloader. . .
 pause >nul
 exit
-)
-exit /b
+@REM )
+@REM exit /b
 
 :dotnetcheck
 Title Dotnet Version Check
@@ -248,33 +272,22 @@ if NOT "%FOUND%" == "1" (
 exit /b
 
 ::resourcescheck
-:7zipcheck
-title 7zip Check
-md Resources\HeatedMetal
-cls
-if NOT exist "Resources\7z.exe" (
-    curl.exe -L "https://github.com/DataCluster0/R6TBBatchTool/raw/master/Requirements/7z.exe" --ssl-no-revoke --output 7z.exe
-    move 7z.exe Resources\
-  call :7zipcheck
-)
-exit /b
 
 :DepotCheck
 title Depot Downloader Check
 cls
-if NOT exist "Resources\DepotDownloader.dll" (
+if NOT exist "Resources\DepotDownloader\DepotDownloader.dll" (
 @REM   curl -L "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_3.4.0/DepotDownloader-framework.zip" --ssl-no-revoke --output depot.zip
     for /f %%B in ('
     powershell -NoProfile -Command ^
     "(Invoke-RestMethod https://api.github.com/repos/SteamRE/DepotDownloader/releases/latest).assets[0].browser_download_url"
     ') do set DOWNLOAD_URL=%%B
 
-    echo %DOWNLOAD_URL%
-    curl -L -o depot.zip %DOWNLOAD_URL%
+    echo !DOWNLOAD_URL!
+    curl -L -o depot.zip !DOWNLOAD_URL!
+
     ::Extract
-    for %%I in ("depot.zip") do (
-      "Resources\7z.exe" x -y -o"Resources" "%%I" -aoa && del %%I
-    )
+    powershell -NoProfile -Command "Expand-Archive -Path 'depot.zip' -DestinationPath 'Resources\DepotDownloader\' -Force; Remove-Item 'depot.zip'"
     call :DepotCheck
 )
 
@@ -285,9 +298,7 @@ cls
 if NOT exist "Resources\HeliosLoader\HeliosLoader.json" (
   curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/cracks/HeliosLoader.zip" --ssl-no-revoke --output HeliosLoader.zip
   ::extract
-  for %%I in ("HeliosLoader.zip") do (
-  "Resources\7z.exe" x -y -o"Resources" "%%I" -aoa && del %%I
-  )
+  powershell -NoProfile -Command "Expand-Archive -Path 'HeliosLoader.zip' -DestinationPath 'Resources' -Force; Remove-Item 'HeliosLoader.zip'"
   call :helioscheck
 )
 exit /b
