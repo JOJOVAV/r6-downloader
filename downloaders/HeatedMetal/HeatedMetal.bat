@@ -70,8 +70,8 @@ echo -------------------------------------------------------------------------
 echo.
 echo   [1] Main Menu  
 echo   [2] Shadow Legacy    ^| Y5S3 ^| 88.0 GB   
-echo   [3] Neon Dawn        ^| Y5S4 ^| 57.0 GB
-echo   %green%[4] New Blood        ^| Y9S2 ^| 56.0 GB (RECOMMENDED)%reset%
+echo   %green%[3] Neon Dawn        ^| Y5S4 ^| 57.0 GB (RECOMMENDED)%reset%
+echo   [4] New Blood        ^| Y9S2 ^| 56.0 GB (OPEN BETA)
 choice /c 1234 /n /m "   choose a number: "
 if errorlevel 4 goto Y9S2_NewBlood
 if errorlevel 3 goto Y5S4_NeonDawn
@@ -150,11 +150,11 @@ echo ^|               Select an option below                   ^|
 echo ----------------------------------------------------------
 echo.
 echo   [1] Back to Main Menu
-echo   [2] Download Heated Metal 0.2.3 (Y5S3 ONLY)
-echo   [3] Download Heated Metal 0.4.2.2 (Y5S4 ONLY)
-echo   %green%[4] Download Heated Metal latest version (Y9S2 ONLY) RECOMMENDED%reset%
+echo   [2] Download Heated Metal 0.2.3 Y5S3 ONLY (OLDER VERSION)
+echo   %green%[3] Download Heated Metal 0.4.2.2 Y5S4 ONLY (RECOMMENDED)%reset%
+echo   [4] Download Heated Metal latest version Y9S2 ONLY (COMING SOON, CHECK DISCORD TO DONWLOAD)
 echo.
-choice /c 1234 /n /m "  Choose a number: "
+choice /c 123 /n /m "  Choose a number: "
 if errorlevel 4 goto hm_nbdownload
 if errorlevel 3 goto hm_nddownload
 if errorlevel 2 goto hm_sldownload
@@ -183,14 +183,14 @@ MODE 79,20
 echo -------------------------------------------------------------------------------
 echo                    Downloading Latest Version of Heated Metal
 echo -------------------------------------------------------------------------------
-curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
-@REM for /f %%D in ('
-@REM     powershell -NoProfile -command ^
-@REM     "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
-@REM     ') do set DOWNLOAD_URL=%%D
+@REM curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
+for /f %%D in ('
+    powershell -NoProfile -command ^
+    "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
+    ') do set DOWNLOAD_URL=%%D
 
-@REM echo %DOWNLOAD_URL%
-@REM   curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
+echo %DOWNLOAD_URL%
+  curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
 
 ::check if Y5S4 is installed
 if exist "Downloads\Y5S4_NeonDawnHM" (
@@ -218,10 +218,10 @@ echo !DOWNLOAD_URL!
 if exist "Downloads\Y9S2_NewBloodHM" (
 		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
 		)
-	) else (
+	else (
 		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
   )
-)
+
 goto downloadcomplete
 
 
