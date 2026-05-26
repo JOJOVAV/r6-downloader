@@ -22,7 +22,7 @@ param (
 
     [string]$AppId = "359550",
     [string]$ManifestPath,
-    [string]$DepotDownloader = "Resources\DepotDownloader.dll",
+    [string]$DepotDownloader = "Resources\DepotDownloader\DepotDownloader.dll",
     [string]$OutputDir = "Downloads"
 )
 
@@ -34,7 +34,7 @@ if (!$ManifestPath -or !(Test-Path $ManifestPath)) {
 }
 
 if (!$DepotDownloader -or !(Test-Path $DepotDownloader)) {
-    $DepotDownloader = Join-Path $PSScriptRoot 'DepotDownloader.dll'
+    $DepotDownloader = Join-Path $PSScriptRoot 'DepotDownloader\DepotDownloader.dll'
 }
 try {
     $manifest = Get-Content $ManifestPath -Raw | ConvertFrom-Json
@@ -145,11 +145,11 @@ $throwbackloaderFiles = @{
 
 
 switch ($true) {
+    # Y5S4.2
     { $yearInt -eq 5 -and $seasonInt -eq 4 -and $patchInt -eq 2 } {
         $files = @("$heliosPath\*.*")
         foreach ($file in $files) {
             if (Test-Path $file) {
-                write-host "5.4.2"
                 Copy-Item $file -Destination $downloadDir -Recurse -Force
             }
             else {
@@ -158,11 +158,11 @@ switch ($true) {
         }
         break
     }
+    # Y9S2.0
     { $yearInt -eq 9 -and $seasonInt -eq 2 -and $patchInt -eq 0 } {
         $files = @("$heliosPath\*.*")
         foreach ($file in $files) {
             if (Test-Path $file) {
-                write-host "9.2.0"
                 Copy-Item $file -Destination $downloadDir -Recurse -Force
             }
             else {
@@ -171,11 +171,11 @@ switch ($true) {
         }
         break
     }
+    # Y6+
     { ($yearInt -eq 6 -and $seasonInt -eq 4) -or ($yearInt -ge 7) } {
         $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f6)")
         foreach ($file in $files) {
             if (Test-Path $file) {
-                write-host "Y6+)"
                 Copy-Item $file -Destination $downloadDir -Force
             }
             else {
@@ -184,6 +184,7 @@ switch ($true) {
         }
         break
     }
+    # Y6S3
     { $yearInt -eq 6 -and $seasonInt -eq 3 } {
         $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f5)")
         foreach ($file in $files) {
@@ -197,11 +198,11 @@ switch ($true) {
         }
         break
     }
-    { ($yearInt -ge 1 -and $yearInt -le 5) -or ($yearInt -le 6 -and $seasonInt -le 2) } {f
+    # Y1 - Y6
+    { ($yearInt -ge 1 -and $yearInt -le 5) -or ($yearInt -le 6 -and $seasonInt -le 2) } {
         $files = @("$throwbackPath\$($throwbackloaderFiles.f1)", "$throwbackPath\$($throwbackloaderFiles.f2)", "$throwbackPath\$($throwbackloaderFiles.f3)", "$throwbackPath\$($throwbackloaderFiles.f4)", "$throwbackPath\$($throwbackloaderFiles.f7)")
         foreach ($file in $files) {
             if (Test-Path $file) {
-                write-host "Y1 - Y6"
                 Copy-Item $file -Destination $downloadDir -Force
             }
             else {
