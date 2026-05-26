@@ -16,6 +16,7 @@ for %%O in ("%OneDrive%" "%OneDriveConsumer%" "%OneDriveCommercial%") do (
     )
 )
 
+call :7zip
 call :DepotCheck
 call :helioscheck
 
@@ -179,7 +180,6 @@ if exist "Downloads\Y5S3_ShadowLegacy" (
     for %%S in ("HeatedMetal.7z") do (
       "Resources\7zip\7za.exe" x "%%S" -y -o"Resources\HeatedMetal\Y5S3_ShadowLegacy" -aoa && del %%S
     )
-		
 )
 pause
 goto downloadcomplete
@@ -277,6 +277,14 @@ if NOT "%FOUND%" == "1" (
 exit /b
 
 ::resourcescheck
+:7zip
+title 7zip Check
+cls
+if NOT exist "Resources\7zip\7z.exe" (
+    curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/7zip.zip" --ssl-no-revoke --output 7zip.zip
+    powershell -NoProfile -Command "Expand-Archive -Path '7zip.zip' -DestinationPath 'Resources\' -Force; Remove-Item '7zip.zip'"
+)
+exit /b
 
 :DepotCheck
 title Depot Downloader Check
