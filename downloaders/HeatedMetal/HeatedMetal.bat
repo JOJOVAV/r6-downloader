@@ -170,9 +170,16 @@ echo ---------------------------------------------------------------------------
 curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.2.3/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
 ::check if y5s3 is installed
 if exist "Downloads\Y5S3_ShadowLegacy" (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y5S3_ShadowLegacy' -Force; Remove-Item 'HeatedMetal.7z'"
+    @REM pause >nul
+		for %%S in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x -y -o"Downloads\Y5S3_ShadowLegacy" -aoa && del %%S
+    )
 	) else (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y5S3_ShadowLegacy' -Force; Remove-Item 'HeatedMetal.7z'"
+    @REM pause >nul
+    for %%S in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x "%%S" -y -o"Resources\HeatedMetal\Y5S3_ShadowLegacy" -aoa && del %%S
+    )
+		
 )
 pause
 goto downloadcomplete
@@ -194,9 +201,13 @@ echo %DOWNLOAD_URL%
 
 ::check if Y5S4 is installed
 if exist "Downloads\Y5S4_NeonDawnHM" (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y5S4_NeonDawnHM' -Force; Remove-Item 'HeatedMetal.7z'"
+		for %%D in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x -y -o"Downloads\Y5S4_NeonDawn" -aoa && del %%D
+    )
 	) else (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y5S4_NeonDawnHM' -Force; Remove-Item 'HeatedMetal.7z'"
+		for %%D in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x -y -o"Resources\HeatedMetal\Y5S4_NeonDawn" -aoa && del %%D
+    )
 )
 goto downloadcomplete
 
@@ -216,10 +227,14 @@ echo !DOWNLOAD_URL!
 
 ::check if Y9S2 is installed
 if exist "Downloads\Y9S2_NewBloodHM" (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Downloads\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
+		for %%B in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x -y -o"Downloads\Y9S2_NewBlood" -aoa && del %%B
+    )
 		)
 	else (
-		powershell -NoProfile -Command "Expand-Archive -Path 'HeatedMetal.7z' -DestinationPath 'Resources\HeatedMetal\Y9S2_NewBloodHM' -Force; Remove-Item 'HeatedMetal.7z'"
+		for %%B in ("HeatedMetal.7z") do (
+      "Resources\7zip\7za.exe" x -y -o"Resources\HeatedMetal\Y9S2_NewBlood" -aoa && del %%B
+    )
   )
 
 goto downloadcomplete
