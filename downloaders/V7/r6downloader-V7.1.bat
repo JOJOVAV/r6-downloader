@@ -26,13 +26,14 @@ for %%O in ("%OneDrive%" "%OneDriveConsumer%" "%OneDriveCommercial%") do (
     )
 )
 
-
+call :7zip
 call :DepotCheck
 call :CrackCheck
 call :helioscheck
 call :cmdCheck
 call :scriptcheck
 call :manifestcheck
+call :updatecheck
 call :checkini
 call :checkname
 call :checkmaxdownloads
@@ -59,7 +60,7 @@ Title Rainbow Six Siege Downloader
 cls
 MODE 78,21
 echo --------------------------------------------------------------------------
-echo ^|      Rainbow Six Siege Downloader (V7.0) - Written by JVAV             ^|
+echo ^|      Rainbow Six Siege Downloader (V7.1) - Written by JVAV             ^|
 echo --------------------------------------------------------------------------
 echo ^|                     https://ko-fi.com/jvav00                           ^|
 echo --------------------------------------------------------------------------
@@ -609,7 +610,7 @@ echo -------------------------------------------------------------------------
 echo.
 call :format
 echo.
-call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Silent Hunt      | Y11S1| 68.9 GB | NO UNLOCKED OPERATORS"
+call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Silent Hunt      | Y11S1| 47.8 GB | NO UNLOCKED OPERATORS"
 if %ERRORLEVEL% == 1 call :downloadmenu
 if %ERRORLEVEL% == 2 call :year11
 if %ERRORLEVEL% == 3 call :Y11S1_SilentHunt
@@ -672,6 +673,7 @@ if "%LATEST_VERSION%" NEQ "%CURRENT_VERSION%" (
     echo.
     set /p updatechoice="Do you want to download the latest version now? (Y/N): "
     if /I "%updatechoice%"=="Y" OR /I "%updatechoice%"=="YES" (
+        start update.bat
         start https://github.com/JOJOVAV/r6-downloader/releases/latest
         exit
     ) else (
@@ -686,14 +688,23 @@ exit /b
 
 
 ::resourcescheck
+:7zip
+title 7zip Check
+cls
+if NOT exist "Resources\7zip\7z.exe" (
+    curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/7zip.zip" --ssl-no-revoke --output 7zip.zip
+    powershell -NoProfile -Command "Expand-Archive -Path '7zip.zip' -DestinationPath 'Resources\' -Force; Remove-Item '7zip.zip'"
+)
+exit /b
+
 :DepotCheck
 title Depot Downloader Check
 cls
-if NOT exist "Resources\DepotDownloader.dll" (
+if NOT exist "Resources\DepotDownloader\DepotDownloader.dll" (
     curl -L "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_3.4.0/DepotDownloader-framework.zip" --ssl-no-revoke --output depot.zip
 
     ::extracting the depot downloader
-    powershell -NoProfile -Command "Expand-Archive -Path 'depot.zip' -DestinationPath 'Resources' -Force; Remove-Item 'depot.zip'"
+    powershell -NoProfile -Command "Expand-Archive -Path 'depot.zip' -DestinationPath 'Resources\DepotDownloader' -Force; Remove-Item 'depot.zip'"
 )
 
 exit /b
@@ -760,6 +771,16 @@ exit /b
 :manifestcheck
 if NOT exist "%manifest%" (
   curl -L "https://raw.githubusercontent.com/JOJOVAV/r6-downloader/refs/heads/main/downloaders/backend/manifest.json" --ssl-no-revoke --output "%manifest%"
+)
+exit /b
+
+:updatecheck
+if not exist "update.bat" (
+    curl -L "https://raw.githubusercontent.com/JOJOVAV/r6-downloader/refs/heads/main/update/update.bat" --ssl-no-revoke --output update.bat
+)
+
+if not exist "Resources\update.ps1" (
+    curl -L "https://raw.githubusercontent.com/JOJOVAV/r6-downloader/refs/heads/main/update/update.ps1" --ssl-no-revoke --output Resources\update.ps1
 )
 exit /b
 
