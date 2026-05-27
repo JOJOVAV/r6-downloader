@@ -616,8 +616,15 @@ if %ERRORLEVEL% == 1 call :downloadmenu
 if %ERRORLEVEL% == 2 call :year11
 if %ERRORLEVEL% == 3 call :Y11S1_SilentHunt
 
+:Y11S1_SilentHunt
+echo You have selected Silent Hunt Edition
+set SEASON="S1"
+set PATCH="12"
+call :downloading
+goto year11
 
 
+::begin of the checks
 :onedrive
 Title OneDrive Folder Check
 cls
