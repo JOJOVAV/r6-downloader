@@ -26,6 +26,7 @@ for %%O in ("%OneDrive%" "%OneDriveConsumer%" "%OneDriveCommercial%") do (
     )
 )
 
+call :checkversion
 call :7zip
 call :DepotCheck
 call :CrackCheck
@@ -461,7 +462,7 @@ echo -------------------------------------------------------------------------
 echo.
 call :format
 echo.
-call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Commanding Force | Y8S1 | 53.8 GB | RIM + TOKY Event" "  Dread Factor     | Y8S2 | xx.x GB | Rengoku Event" "  Heavy Mettle     | Y8S3 | 54.8 GB | Doktor's Curse Event + NO UNLOCKED OPERATORS" "  Deep Freeze      | Y8S4 | 52.9 GB | NO UNLOCKED OPERATORS"
+call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Commanding Force | Y8S1 | 53.8 GB | RIM + TOKY Event" "  Dread Factor     | Y8S2 | 55.0 GB | Rengoku Event" "  Heavy Mettle     | Y8S3 | 54.8 GB | Doktor's Curse Event + NO UNLOCKED OPERATORS" "  Deep Freeze      | Y8S4 | 52.9 GB | NO UNLOCKED OPERATORS"
 if %ERRORLEVEL% == 1 call :downloadmenu
 if %ERRORLEVEL% == 2 call :year8
 if %ERRORLEVEL% == 3 call :Y8S1_CommandingForce
@@ -644,10 +645,10 @@ for /f "tokens=1 delims=." %%V in ('dotnet --list-sdks 2^>nul') do (
     )
 )
 
-if NOT "%FOUND%" == "1" (
+if NOT !FOUND! == 1 (
   echo Dotnet version 9.0.0 or higher is not installed.
   echo .
-  echo If for some reason after installing dotnet you still get this message, 
+  echo If for some reason after installing dotnet you still get this message,
   echo please restart your computer and try again.
   echo .
   echo If you still get this message, please install 32-bit x86 version of dotnet and then restart.
@@ -680,18 +681,18 @@ if "%LATEST_VERSION%" NEQ "%CURRENT_VERSION%" (
         echo You chose not to update. Continuing with the current version.
     )
 ) else (
-    echo You have the latest version of the Downloader.
+    exit /b
 
 )
-timeout /T 10 >nul
-exit /b
+@REM timeout /T 10 >nul
+
 
 
 ::resourcescheck
 :7zip
 title 7zip Check
 cls
-if NOT exist "Resources\7zip\7z.exe" (
+if NOT exist "Resources\7zip\7za.exe" (
     curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/7zip.zip" --ssl-no-revoke --output 7zip.zip
     powershell -NoProfile -Command "Expand-Archive -Path '7zip.zip' -DestinationPath 'Resources\' -Force; Remove-Item '7zip.zip'"
 )
