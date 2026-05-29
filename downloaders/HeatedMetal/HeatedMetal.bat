@@ -171,17 +171,16 @@ echo ---------------------------------------------------------------------------
 curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.2.3/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
 ::check if y5s3 is installed
 if exist "Downloads\Y5S3_ShadowLegacy" (
-    @REM pause >nul
-		for %%S in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x -y -o"Downloads\Y5S3_ShadowLegacy" -aoa && del %%S
-    )
-	) else (
-    @REM pause >nul
-    for %%S in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x "%%S" -y -o"Resources\HeatedMetal\Y5S3_ShadowLegacy" -aoa && del %%S
-    )
+  @REM pause >nul
+  for %%S in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%S" -y -o"Downloads\Y5S3_ShadowLegacy" -aoa && del %%S
+  )
+) else (
+  @REM pause >nul
+  for %%S in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%S" -y -o"Resources\HeatedMetal\Y5S3_ShadowLegacy" -aoa && del %%S
+  )
 )
-pause
 goto downloadcomplete
 
 :hm_nddownload
@@ -192,22 +191,22 @@ echo                    Downloading Latest Version of Heated Metal
 echo -------------------------------------------------------------------------------
 @REM curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
 for /f %%D in ('
-    powershell -NoProfile -command ^
-    "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
-    ') do set DOWNLOAD_URL=%%D
+  powershell -NoProfile -command ^
+  "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
+  ') do set DOWNLOAD_URL=%%D
 
 echo %DOWNLOAD_URL%
   curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
 
 ::check if Y5S4 is installed
 if exist "Downloads\Y5S4_NeonDawnHM" (
-		for %%D in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x -y -o"Downloads\Y5S4_NeonDawn" -aoa && del %%D
-    )
-	) else (
-		for %%D in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x -y -o"Resources\HeatedMetal\Y5S4_NeonDawn" -aoa && del %%D
-    )
+  for %%D in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%D" -y -o"Downloads\Y5S4_NeonDawnHM" -aoa && del %%D
+  )
+) else (
+  for %%D in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%D" -y -o"Resources\HeatedMetal\Y5S4_NeonDawn" -aoa && del %%D
+  )
 )
 goto downloadcomplete
 
@@ -218,25 +217,23 @@ echo ---------------------------------------------------------------------------
 echo                    Downloading Latest Version of Heated Metal
 echo -------------------------------------------------------------------------------
 for /f %%D in ('
-    powershell -NoProfile -command ^
-    "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
-    ') do set DOWNLOAD_URL=%%D
+  powershell -NoProfile -command ^
+  "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
+  ') do set DOWNLOAD_URL=%%D
 
 echo !DOWNLOAD_URL!
-  curl -L -o HeatedMetal.7z !DOWNLOAD_URL!
+curl -L -o HeatedMetal.7z !DOWNLOAD_URL!
 
 ::check if Y9S2 is installed
 if exist "Downloads\Y9S2_NewBloodHM" (
-		for %%B in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x -y -o"Downloads\Y9S2_NewBlood" -aoa && del %%B
-    )
-		)
-	else (
-		for %%B in ("HeatedMetal.7z") do (
-      "Resources\7zip\7za.exe" x -y -o"Resources\HeatedMetal\Y9S2_NewBlood" -aoa && del %%B
-    )
+  for %%B in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%B" -y -o"Downloads\Y9S2_NewBloodHM" -aoa && del %%B
   )
-
+) else (
+  for %%B in ("HeatedMetal.7z") do (
+    "Resources\7zip\7za.exe" x "%%B" -y -o"Resources\HeatedMetal\Y9S2_NewBlood" -aoa && del %%B
+  )
+)
 goto downloadcomplete
 
 
