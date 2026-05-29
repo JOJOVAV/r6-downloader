@@ -4,7 +4,7 @@
     "files": [
       {
         "path": "/heatedmetal.bat",
-        "sha256": "359e88897718e3ea907e652674f0d85b119e6c472c3786967cfc581cbff7bf13"
+        "sha256": "359E88897718E3EA907E652674F0D85B119E6C472C3786967CFC581CBFF7BF13"
       }
     ]
   },
@@ -13,7 +13,7 @@
     "files": [
       {
         "path": "Resources/backend.ps1",
-        "sha256": "A6255C0334CB22F3BE4C56268CB6172EB8F985EF82F78CF1C2235F58CCFE8AA8"
+        "sha256": "22F24C547A5FD6E00C95A6C5B69372A663F30F2B8F7D3B60C7B32ED1E46DE7E6"
       }
     ]
   },
