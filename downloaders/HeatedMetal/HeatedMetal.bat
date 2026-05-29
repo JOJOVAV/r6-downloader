@@ -277,7 +277,7 @@ exit /b
 :7zip
 title 7zip Check
 cls
-if NOT exist "Resources\7zip\7z.exe" (
+if NOT exist "Resources\7zip\7za.exe" (
     curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/7zip.zip" --ssl-no-revoke --output 7zip.zip
     powershell -NoProfile -Command "Expand-Archive -Path '7zip.zip' -DestinationPath 'Resources\' -Force; Remove-Item '7zip.zip'"
 )
