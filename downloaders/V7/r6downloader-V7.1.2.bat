@@ -16,7 +16,7 @@ set "USERNAME="
 set MAXDOWNLOADS=
 set "GITHUB_REPO_OWNER=JOJOVAV"
 set "GITHUB_REPO_NAME=r6-downloader"
-set "CURRENT_VERSION=7.1"
+set "CURRENT_VERSION=7.1.2"
 set "LATEST_VERSION="
 
 
@@ -61,7 +61,7 @@ Title Rainbow Six Siege Downloader
 cls
 MODE 78,21
 echo --------------------------------------------------------------------------
-echo ^|      Rainbow Six Siege Downloader (V7.1) - Written by JVAV             ^|
+echo ^|      Rainbow Six Siege Downloader (V7.1.2) - Written by JVAV           ^|
 echo --------------------------------------------------------------------------
 echo ^|                     https://ko-fi.com/jvav00                           ^|
 echo --------------------------------------------------------------------------
@@ -634,7 +634,7 @@ echo %OneDrive%
 start https://bit.ly/no-onedrive
 echo ----------------------------------------------------------------------------------------------------------------
 echo ^| You ran this downloader inside of a OneDrive folder, move the downloader to a different location.            ^|
-echo ^| If you can't figure out how to move it follow this guide: https://shorturl.at/qk3SX                          ^|
+echo ^| If you can't figure out how to move it follow this guide: https://bit.ly/no-onedrive                         ^|
 echo ^| PLEASE just check ALL of the Onedrive folder locations ^| DONT MAKE HELP POSTS ABOUT THIS - USE YOUR BRAIN   ^|
 echo -----------------------------------------------------------------------------------------------------------------
 echo Press any key to close the downloader. . .
@@ -659,8 +659,9 @@ if NOT !FOUND! == 1 (
   echo If for some reason after installing dotnet you still get this message,
   echo please restart your computer and try again.
   echo .
-  echo If you still get this message, please install 32-bit x86 version of dotnet and then restart.
+  echo If you still get this message, please install 32-bit ^(x86^) version of dotnet and then restart.
   start https://dotnet.microsoft.com/en-us/download
+  echo Press any key to close the downloader. . .
   pause >nul
   exit
 )
@@ -675,7 +676,7 @@ for /f "usebackq delims=" %%A in (`powershell -NoProfile -Command "(Invoke-RestM
 echo Latest version: !LATEST_VERSION!
 echo Current version: %CURRENT_VERSION%
 @REM pause >nul
-if "%LATEST_VERSION%" NEQ "%CURRENT_VERSION%" (
+if "!LATEST_VERSION!" NEQ "%CURRENT_VERSION%" (
     echo A new version of the Downloader is available!
     echo Your version : %CURRENT_VERSION%
     echo Latest version: !LATEST_VERSION!
@@ -687,11 +688,12 @@ if "%LATEST_VERSION%" NEQ "%CURRENT_VERSION%" (
         exit
     ) else (
         echo You chose not to update. Continuing with the current version.
+        exit /b
     )
 ) else (
     exit /b
-
 )
+exit /b
 @REM timeout /T 10 >nul
 
 
