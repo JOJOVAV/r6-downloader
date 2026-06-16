@@ -313,14 +313,15 @@ echo -------------------------------------------------------------------------
 echo.
 call :format
 echo.
-call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Void Edge        | Y5S1 | 74.3 GB | The Grand Larceny + Golden Gun Event" "  Steel Wave       | Y5S2 | 81.3 GB | M.U.T.E. Protocol Event" "  Shadow Legacy    | Y5S3 | 88.0 GB | Sugar Fright Event" "  Neon Dawn        | Y5S4 | 57.0 GB | SUPPORTS HEATED METAL" "  Neon Dawn        | Y5S4 | 57.0 GB | Road To S.I. 2021"
+call :cmdMenuSel "  Back to Seasons Menu" "  Refresh Menu" "  Void Edge        | Y5S1 | 74.3 GB | The Grand Larceny + Golden Gun Event" "  Steel Wave       | Y5S2 | 81.3 GB | M.U.T.E. Protocol Event" "  Shadow Legacy    | Y5S3 | 88.0 GB | Sugar Fright Event" "  Neon Dawn        | Y5S4 | 57.0 GB | SUPPORTS HEATED METAL"
+
 if %ERRORLEVEL% == 1 call :downloadmenu
 if %ERRORLEVEL% == 2 call :year5
 if %ERRORLEVEL% == 3 call :Y5S1_VoidEdge
 if %ERRORLEVEL% == 4 call :Y5S2_SteelWave
 if %ERRORLEVEL% == 5 call :Y5S3_ShadowLegacy
 if %ERRORLEVEL% == 6 call :Y5S4_NeonDawnHM
-if %ERRORLEVEL% == 7 call :Y5S4_NeonDawn
+:: if %ERRORLEVEL% == 7 call :Y5S4_NeonDawn
 
 :Y5S1_VoidEdge
 echo You have selected Void Edge Edition
