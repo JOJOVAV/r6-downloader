@@ -8,6 +8,7 @@ set "green=%ESC%[32m"
 set "brightgreen=%ESC%[92m"
 set "bold=%ESC%[1m"
 set "reset=%ESC%[0m"
+set "depotdownloader=Resources\DepotDownloader\DepotDownloader.dll"
 
 ::onedrive check
 for %%O in ("%OneDrive%" "%OneDriveConsumer%" "%OneDriveCommercial%") do (
@@ -90,9 +91,9 @@ echo Last availible version is 0.2.3
 echo Use the Neon Dawn option to use future Heated Metal versions, unless you wish to use older versions of Heated Metal.
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe or Lumaplay.exe^!
 pause
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 85893637567200342 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 4020038723910014041 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3089981610366186823 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 377237 -manifest 85893637567200342 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 377238 -manifest 4020038723910014041 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 359551 -manifest 3089981610366186823 -username %username% -remember-password -dir "Downloads\Y5S3_ShadowLegacy" -validate -max-downloads %maxdownloads% 
 pause
 Robocopy Resources\HeliosLoader Downloads\Y5S3_ShadowLegacy
 ::Robocopy Resources Downloads\Y5S3_ShadowLegacy localization.lang /IS /IT
@@ -106,9 +107,9 @@ cls
 set /p username="Enter Steam Username:"
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
 pause
-dotnet Resources\DepotDownloader.dll -app 359550 -depot 377237 -manifest 3390446325154338855 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3175150742361965235 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 6947060999143280245 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 377237 -manifest 3390446325154338855 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 377238 -manifest 3175150742361965235 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
+dotnet %depotdownloader% -app 359550 -depot 359551 -manifest 6947060999143280245 -username %username% -remember-password -dir "Downloads\Y5S4_NeonDawnHM" -validate -max-downloads %maxdownloads% 
 pause
 Robocopy Resources\HeliosLoader Downloads\Y5S4_NeonDawnHM
 goto downloadcomplete
@@ -120,9 +121,9 @@ cls
 set /p username="Enter Steam Username:"
 echo Launch the game using the LaunchR6.bat file instead of the RainbowSix.exe^!
 pause
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
-dotnet Resources\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet %depotdownloader% -app 359550 -depot 377237 -manifest 6874184890918352263 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet %depotdownloader% -app 359550 -depot 377238 -manifest 3648252944070415883 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
+dotnet %depotdownloader% -app 359550 -depot 359551 -manifest 2171250367116101899 -username %username% -remember-password -dir "Downloads\Y9S2_NewBloodHM" -validate -max-downloads %maxdownloads%
 pause
 Robocopy Resources\HeliosLoader Downloads\Y9S2_NewBloodHM
 goto downloadcomplete
@@ -246,7 +247,7 @@ start https://bit.ly/no-onedrive
 cls
 echo ----------------------------------------------------------------------------------------------------------------
 echo ^| You ran this downloader inside of a OneDrive folder, move the downloader to a different location.            ^|
-echo ^| If you can't figure out how to move it follow this guide: https://shorturl.at/qk3SX                          ^|
+echo ^| If you can't figure out how to move it follow this guide: https://bit.ly/no-onedrive                         ^|
 echo ^| PLEASE just check ALL of the Onedrive folder locations ^| DONT MAKE HELP POSTS ABOUT THIS - USE YOUR BRAIN   ^|
 echo -----------------------------------------------------------------------------------------------------------------
 echo Press any key to close the downloader. . .
