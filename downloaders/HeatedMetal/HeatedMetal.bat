@@ -153,10 +153,10 @@ echo ----------------------------------------------------------
 echo.
 echo   [1] Back to Main Menu
 echo   [2] Download Heated Metal 0.2.3 Y5S3 ONLY (OLDER VERSION)
-echo   [3] Download Heated Metal 0.4.2.2 Y5S4 ONLY (OLDER VERSION)
-echo   %green%[4] Download Heated Metal latest version Y9S2 ONLY (RECOMMENDED)%reset%
+echo   %green%[3] Download Heated Metal 0.4.2.2 Y5S4 ONLY (RECOMMENDED)%reset%
+echo   [4] Download Heated Metal latest version Y9S2 ONLY (COMING SOON, CHECK DISCORD TO DONWLOAD)
 echo.
-choice /c 1234 /n /m "  Choose a number: "
+choice /c 123 /n /m "  Choose a number: "
 if errorlevel 4 goto hm_nbdownload
 if errorlevel 3 goto hm_nddownload
 if errorlevel 2 goto hm_sldownload
@@ -188,17 +188,16 @@ goto downloadcomplete
 cls
 MODE 79,20
 echo -------------------------------------------------------------------------------
-echo                    Downloading Heated Metal 0.4.2.2
+echo                    Downloading Latest Version of Heated Metal
 echo -------------------------------------------------------------------------------
-curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
-pause > nul
-@REM for /f %%D in ('
-@REM   powershell -NoProfile -command ^
-@REM   "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
-@REM   ') do set DOWNLOAD_URL=%%D
+@REM curl -L "https://github.com/DataCluster0/HeatedMetal/releases/download/0.4.2.2/HeatedMetal.7z" --ssl-no-revoke --output HeatedMetal.7z
+for /f %%D in ('
+  powershell -NoProfile -command ^
+  "(Invoke-RestMethod https://api.github.com/repos/DataCluster0/HeatedMetal/releases/latest).assets[0].browser_download_url"
+  ') do set DOWNLOAD_URL=%%D
 
-@REM echo %DOWNLOAD_URL%
-@REM   curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
+echo %DOWNLOAD_URL%
+  curl -L -o HeatedMetal.7z %DOWNLOAD_URL%
 
 ::check if Y5S4 is installed
 if exist "Downloads\Y5S4_NeonDawnHM" (
@@ -248,22 +247,23 @@ start https://bit.ly/no-onedrive
 cls
 echo ----------------------------------------------------------------------------------------------------------------
 echo ^| You ran this downloader inside of a OneDrive folder, move the downloader to a different location.            ^|
-echo ^| If you can't figure out how to move it follow this guide: https://shorturl.at/qk3SX                          ^|
+echo ^| If you can't figure out how to move it follow this guide: https://bit.ly/no-onedrive                         ^|
 echo ^| PLEASE just check ALL of the Onedrive folder locations ^| DONT MAKE HELP POSTS ABOUT THIS - USE YOUR BRAIN   ^|
 echo -----------------------------------------------------------------------------------------------------------------
 echo Press any key to close the downloader. . .
 pause >nul
 exit
-
+@REM )
+@REM exit /b
 
 :dotnetcheck
 Title Dotnet Version Check
 cls
 set FOUND=0
 for /f "tokens=1 delims=." %%V in ('dotnet --list-sdks 2^>nul') do (
-  if %%V GEQ 9 (
-      set FOUND=1
-  )
+    if %%V GEQ 9 (
+        set FOUND=1
+    )
 )
 
 if NOT "%FOUND%" == "1" (
@@ -284,23 +284,22 @@ if NOT exist "Resources\7zip\7za.exe" (
 )
 exit /b
 
-
 :DepotCheck
 title Depot Downloader Check
 cls
 if NOT exist "Resources\DepotDownloader\DepotDownloader.dll" (
 @REM   curl -L "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_3.4.0/DepotDownloader-framework.zip" --ssl-no-revoke --output depot.zip
-  for /f %%B in ('
-  powershell -NoProfile -Command ^
-  "(Invoke-RestMethod https://api.github.com/repos/SteamRE/DepotDownloader/releases/latest).assets[0].browser_download_url"
-  ') do set DOWNLOAD_URL=%%B
+    for /f %%B in ('
+    powershell -NoProfile -Command ^
+    "(Invoke-RestMethod https://api.github.com/repos/SteamRE/DepotDownloader/releases/latest).assets[0].browser_download_url"
+    ') do set DOWNLOAD_URL=%%B
 
-  echo !DOWNLOAD_URL!
-  curl -L -o depot.zip !DOWNLOAD_URL!
+    echo !DOWNLOAD_URL!
+    curl -L -o depot.zip !DOWNLOAD_URL!
 
-  ::Extract
-  powershell -NoProfile -Command "Expand-Archive -Path 'depot.zip' -DestinationPath 'Resources\DepotDownloader\' -Force; Remove-Item 'depot.zip'"
-  call :DepotCheck
+    ::Extract
+    powershell -NoProfile -Command "Expand-Archive -Path 'depot.zip' -DestinationPath 'Resources\DepotDownloader\' -Force; Remove-Item 'depot.zip'"
+    call :DepotCheck
 )
 
 exit /b
@@ -309,7 +308,6 @@ title Helios Check
 cls
 if NOT exist "Resources\HeliosLoader\HeliosLoader.json" (
   curl -L "https://github.com/JOJOVAV/r6-downloader/raw/refs/heads/main/cracks/HeliosLoader.zip" --ssl-no-revoke --output HeliosLoader.zip
-  
   ::extract
   powershell -NoProfile -Command "Expand-Archive -Path 'HeliosLoader.zip' -DestinationPath 'Resources' -Force; Remove-Item 'HeliosLoader.zip'"
   call :helioscheck
