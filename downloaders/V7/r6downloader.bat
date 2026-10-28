@@ -74,11 +74,10 @@ call :cmdMenuSel "  Game Downloader" "  verify the game" "  Heated Metal" "  4K 
 if %ERRORLEVEL% == 1 call :downloadmenu
 if %ERRORLEVEL% == 2 call :downloadmenu
 if %ERRORLEVEL% == 3 call :HeatedMetal
-if %ERRORLEVEL% == 4 call :4ktextures
-if %ERRORLEVEL% == 5 call :extratools
-if %ERRORLEVEL% == 6 call :siegeclaim
-if %ERRORLEVEL% == 7 call :moresettings
-if %ERRORLEVEL% == 8 call :guidefaq
+if %ERRORLEVEL% == 4 call :extratools
+if %ERRORLEVEL% == 5 call :siegeclaim
+if %ERRORLEVEL% == 6 call :moresettings
+if %ERRORLEVEL% == 7 call :guidefaq
 
 
 :downloadmenu
@@ -941,7 +940,7 @@ pause >nul
 exit /b
 
 :guidefaq
-start https://puppetino.github.io/Throwback-FAQ/Pages/getting_started.html
+start https://xeralin.github.io/ThrowbackFAQ/
 goto mainmenu
 
 :siegeclaim
